@@ -1,5 +1,6 @@
 import { memo, useContext } from 'react'
 import { TaskContext } from '../context/TaskContext'
+import RouterLink from "./RouterLink.jsx";
 
 const TodoItem = (props) => {
   const {
@@ -17,7 +18,7 @@ const TodoItem = (props) => {
   } = useContext(TaskContext)
 
   return (
-    <li 
+    <li
       className={`todo-item ${className}`} 
       ref={ id === firstIncompleteTaskId ? firstIncompleteTaskRef : null }
     >
@@ -29,11 +30,14 @@ const TodoItem = (props) => {
         onChange={({ target }) => toggleTaskComplete(id, target.checked)}
       />
       <label
-        className="todo-item__label"
+        className="todo-item__label visually-hidden"
         htmlFor={id}
       >
         {title}
       </label>
+      <RouterLink to={`/task/${id}`} aria-label="Task detail page">
+          {title}
+      </RouterLink>
       <button
         className="todo-item__delete-button"
         aria-label="Delete"
