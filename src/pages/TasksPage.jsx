@@ -1,5 +1,5 @@
 import { TaskProvider } from "../context/TaskContext"
-import Todo from '../components/Todo'
+import Todo from '../components/Todo/Todo.jsx'
 
 const TasksPage = () => {
     return (
