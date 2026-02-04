@@ -2,6 +2,7 @@ import {memo, useContext} from 'react'
 import { TaskContext } from '@/entities/todo'
 import RouterLink from "@/shared/ui/RouterLink";
 import styles from "./TodoItem.module.scss"
+import {highlightCaseInsensitive} from "@/shared/utils/highlight.js";
 
 const TodoItem = (props) => {
   const {
@@ -18,7 +19,10 @@ const TodoItem = (props) => {
     toggleTaskComplete,
     disappearingTaskId,
     appearingTaskId,
+    searchQuery,
   } = useContext(TaskContext)
+
+    const highlightedTitle = highlightCaseInsensitive(title, searchQuery)
 
   return (
     <li
@@ -44,7 +48,7 @@ const TodoItem = (props) => {
         {title}
       </label>
       <RouterLink to={`/task/${id}`} aria-label="Task detail page">
-          {title}
+          <span dangerouslySetInnerHTML={{ __html: highlightedTitle }} />
       </RouterLink>
       <button
         className={styles.deleteButton}

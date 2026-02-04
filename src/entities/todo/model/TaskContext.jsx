@@ -10,10 +10,6 @@ export const TaskProvider = (props) => {
     const tasks = useTasks()
     const incompleteTaskScroll = useIncompleteTaskScroll(tasks.tasks)
 
-    // console.log(tasks)
-
-    const deps = {...tasks, ...incompleteTaskScroll}
-
     const value = useMemo(() => ({
         ...tasks, ...incompleteTaskScroll
     }), [
