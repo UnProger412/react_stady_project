@@ -24,7 +24,7 @@ const AddTaskForm = (props) => {
     if (!isNewTaskTitleEmpty) {
       addTask(
           newTaskTitle,
-          setNewTaskTitle(''),
+          setNewTaskTitle,
       )
     }
   }

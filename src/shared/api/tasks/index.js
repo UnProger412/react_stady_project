@@ -1,45 +1,8 @@
-const URL = 'http://localhost:3001/tasks'
+import localAPI from "./local.js"
+import serverAPI from "./server.js"
 
-const headers = {
-    'Content-Type': 'application/json'
-}
+const isLocal = import.meta.env.VITE_STATIC_BACKEND === "true"
 
-const taskAPI = {
-    getAll: () => {
-        return fetch(URL).then((response) => response.json())
-    },
+const tasksAPI = isLocal ? localAPI : serverAPI
 
-    getById: (id) => {
-        return fetch(`${URL}/${id}`)
-            .then((response) => response.json())
-    },
-
-    add: (task) => {
-        return fetch(URL, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(task),
-        })
-            .then((response) => response.json())
-    },
-
-    delete: (id) => {
-        return fetch(`${URL}/${id}`, {method: 'DELETE'})
-    },
-
-    deleteAll: (tasks) => {
-        return Promise.all(
-            tasks.map(({ id }) => taskAPI.delete(id))
-        )
-    },
-
-    toggleComplete: (id, isDone) => {
-        return fetch(`${URL}/${id}`, {
-            method: 'PATCH',
-            headers,
-            body: JSON.stringify({ isDone })
-        })
-    },
-}
-
-export default taskAPI
+export default tasksAPI
